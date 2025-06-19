@@ -11,11 +11,15 @@ function createGrid (size) {
     for (let i = 0; i < size; i++) {
         const row = document.createElement("div");
         row.setAttribute("id", "row" + i);
+        row.setAttribute("class", "row");
+        row.setAttribute("style", "display: flex;")
+        row.style.width = "800px";
         container.appendChild(row);
         for (let j = 0; j < size; j++) {
             const row = document.getElementById("row" + i);
             const div = document.createElement("div");
-            div.setAttribute("class", "cell")
+            div.setAttribute("class", "cell");
+            div.setAttribute("style", "height: auto; width: 200px;")
             row.appendChild(div);
         }
     }   
@@ -36,16 +40,31 @@ function changeBackground(cell) {
 }
 
 function mouseHover () {
-    let cells = document.querySelectorAll(".cell")
+    let cells = document.querySelectorAll(".cell");
     cells.forEach(cell => {
-        cell.addEventListener("mouseenter", () => { changeBackground(cell) })    
+        cell.addEventListener("mouseenter", () => { changeBackground(cell); });    
     });
 
 }
 
+function main () {
+    let cells = document.querySelectorAll(".cell");
+    let rows = document.querySelectorAll(".row");
+    if (cells != null)
+    {
+        cells.forEach((cell) => { cell.remove(); });
+    }
+    if (rows != null)
+    {
+        rows.forEach((row) => { row.remove(); });
+    }
+    createGrid(getGridSize());
+    mouseHover();
+}
+
 let button = document.querySelector(".gridChooserBtn");
 
-button.addEventListener("click", () => {createGrid(getGridSize()); mouseHover(); });
+button.addEventListener("click", main);
 
 
 
