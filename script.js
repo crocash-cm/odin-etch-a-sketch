@@ -17,10 +17,11 @@ function createGrid (size) {
         container.appendChild(row);
         for (let j = 0; j < size; j++) {
             const row = document.getElementById("row" + i);
-            const div = document.createElement("div");
-            div.setAttribute("class", "cell");
-            div.setAttribute("style", "height: auto; width: 200px;")
-            row.appendChild(div);
+            const cell = document.createElement("div");
+            cell.setAttribute("class", "cell");
+            cell.setAttribute("style", "height: auto; width: 200px; background: opacity: 0.1;");
+            
+            row.appendChild(cell);
         }
     }   
 }
@@ -34,10 +35,24 @@ function getGridSize () {
     return choice;
 }
 
-function changeBackground(cell) {
-    cell.style.backgroundColor = "pink";
-    console.log("background changed.");
+function getRandNum (max) {
+    return Math.floor(Math.random() * max);
 }
+
+function getColourChangeString () {
+    const red = getRandNum(255);
+    const green = getRandNum(255);
+    const blue = getRandNum(255);
+    return `rgb(${red},${green},${blue})`;
+}
+
+function changeBackground (cell) {
+    const randomColour = getColourChangeString()
+    cell.style.backgroundColor = randomColour;
+    console.log("Background changed");
+}
+
+
 
 function mouseHover () {
     let cells = document.querySelectorAll(".cell");
@@ -65,6 +80,9 @@ function main () {
 let button = document.querySelector(".gridChooserBtn");
 
 button.addEventListener("click", main);
+
+createGrid(16);
+mouseHover();
 
 
 
